@@ -1,0 +1,39 @@
+.navbar{
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    z-index: 2;
+}
+
+.bi{
+    margin-left: 10px;
+}
+.carousel-inner{
+    margin-top: 80px;
+}
+.card-body{
+    display: flex;
+}
+.card{
+    height: 300px;
+    margin-top: 20px;
+    overflow: hidden;
+    background: bisque;
+}
+.card-detail{
+    display: flex;
+    gap: 5px;
+    margin:auto
+}
+.card:hover {
+    background: #86b7fe;
+}
+.card:hover img {
+    transform: scale(1.2);
+}
+.card img{
+    transition: all 0.3s;
+    object-fit: cover;
+    overflow: hidden;
+}
