@@ -18,13 +18,11 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
 }
-.navbar{
-    position: fixed;
-    top: 0;
-    height: 60px;
-    width: 100%;
-    z-index: 2;
-}
-.bi{
-    margin-left: 10px;
+
+.form {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    margin: 100px auto 50px;
+    border-radius: .5rem;
 }

@@ -1,10 +1,10 @@
 import {Component} from "react";
 import {ListImg} from "../../image";
-
+import './header.css'
 export class Header extends Component {
     render() {
         return (
-            <div>
+            <>
                 <nav
                     className="navbar navbar-expand-lg navbar-light text-white"
                     style={{backgroundColor: "#45526e"}}
@@ -14,10 +14,9 @@ export class Header extends Component {
                             alt="..."
                             className="navbar-brand"
                             height={40}
-                            src={ListImg.image1}
+                            src={ListImg.logo}
                             width={100}
                         />
-                        <a class="navbar-brand" href="#">Trang chủ</a>
                         <button
                             aria-controls="navbarSupportedContent"
                             aria-expanded="false"
@@ -157,7 +156,7 @@ export class Header extends Component {
                     </div>
                 </nav>
 
-            </div>
+            </>
         );
     }
 }
