@@ -1,0 +1,310 @@
+{
+  "facilities": [
+    {
+      "id": 1,
+      "nameFacility": "OCEAN SUITE",
+      "img": "image2/1.webp",
+      "typeFacility": 3,
+      "usableArea": "45.5",
+      "price": "1000000",
+      "maxRenter": "3",
+      "typeRental": "3",
+      "roomStandard": null,
+      "description": null,
+      "poolArea": null,
+      "floor": null,
+      "freeService": 2
+    },
+    {
+      "id": 2,
+      "nameFacility": "OCEAN STUDIO SUITE",
+      "img": "image2/2.jpg",
+      "typeFacility": 3,
+      "usableArea": "50",
+      "price": "1500000",
+      "maxRenter": "4",
+      "typeRental": "1",
+      "roomStandard": null,
+      "description": null,
+      "poolArea": null,
+      "floor": null,
+      "freeService": 1
+    },
+    {
+      "id": 3,
+      "nameFacility": "OCEAN DELUXE",
+      "img": "image2/3.webp",
+      "typeFacility": 3,
+      "usableArea": "55.5",
+      "price": "1200000",
+      "maxRenter": "3",
+      "typeRental": "3",
+      "roomStandard": null,
+      "description": null,
+      "poolArea": null,
+      "floor": null,
+      "freeService": 3
+    },
+    {
+      "id": 4,
+      "nameFacility": "LAGOON SUPERIOR",
+      "img": "image2/4.jfif",
+      "typeFacility": 2,
+      "usableArea": "60",
+      "price": "1600000",
+      "maxRenter": "5",
+      "typeRental": "3",
+      "roomStandard": "Normal",
+      "description": "free basic service",
+      "poolArea": null,
+      "floor": 1,
+      "freeService": 1
+    },
+    {
+      "id": 5,
+      "nameFacility": "GARDEN SUPERIOR",
+      "img": "image2/5.jfif",
+      "typeFacility": 2,
+      "usableArea": "55.5",
+      "price": "1800000",
+      "maxRenter": "6",
+      "typeRental": "3",
+      "roomStandard": "Normal",
+      "description": "free basic service",
+      "poolArea": null,
+      "floor": 2,
+      "freeService": 2
+    },
+    {
+      "id": 6,
+      "nameFacility": "GARDEN DELUXE",
+      "img": "image2/6.jfif",
+      "typeFacility": 2,
+      "usableArea": "70.5",
+      "price": "2000000",
+      "maxRenter": "6",
+      "typeRental": "2",
+      "roomStandard": "Vip",
+      "description": "free basic service",
+      "poolArea": null,
+      "floor": 1,
+      "freeService": 4
+    },
+    {
+      "id": 7,
+      "nameFacility": "PRESIDENTIAL VILLAS",
+      "img": "image2/7.webp",
+      "typeFacility": 1,
+      "usableArea": "85.5",
+      "price": "2500000",
+      "maxRenter": "4",
+      "typeRental": "2",
+      "roomStandard": "Normal",
+      "description": "free basic service",
+      "poolArea": 30,
+      "floor": 2,
+      "freeService": 1
+    },
+    {
+      "id": 8,
+      "nameFacility": "BEACH FRONT VILLAS",
+      "img": "image2/8.jpg",
+      "typeFacility": 4,
+      "usableArea": "75.5",
+      "price": "2800000",
+      "maxRenter": "5",
+      "typeRental": "1",
+      "roomStandard": "Vip",
+      "description": "free basic service",
+      "poolArea": 35,
+      "floor": 1,
+      "freeService": 1
+    },
+    {
+      "id": 9,
+      "nameFacility": "POOL VILLAS",
+      "img": "image2/9.jpg",
+      "typeFacility": 1,
+      "usableArea": "88.5",
+      "price": "300",
+      "maxRenter": "7",
+      "typeRental": "3",
+      "roomStandard": "Vip",
+      "description": "free basic service",
+      "poolArea": 40,
+      "floor": 2,
+      "freeService": 2
+    }
+  ],
+  "typeFacility": [
+    {
+      "id": 1,
+      "name": "Villa"
+    },
+    {
+      "id": 2,
+      "name": "House"
+    },
+    {
+      "id": 3,
+      "name": "Room"
+    }
+  ],
+  "freeService": [
+    {
+      "id": 1,
+      "name": "Transportation Service"
+    },
+    {
+      "id": 2,
+      "name": "Shoeshine service"
+    },
+    {
+      "id": 3,
+      "name": "Laundry service"
+    },
+    {
+      "id": 4,
+      "name": "Babysitting service"
+    }
+  ],
+  "typeRental": [
+    {
+      "id": 1,
+      "name": "Rent by year"
+    },
+    {
+      "id": 2,
+      "name": "Rent by month"
+    },
+    {
+      "id": 3,
+      "name": "Rent by day"
+    },
+    {
+      "id": 4,
+      "name": "Rent by hour"
+    }
+  ],
+  "customer": [
+    {
+      "id": 1,
+      "name": "Đoàn Thành Tiến",
+      "dateOfBirth": "1993/03/09",
+      "gender": "Nam",
+      "iDCard": "191796571",
+      "phoneNumber": "0911899190",
+      "email": "tienDoan123@gmail.com",
+      "typeCustomer": 2,
+      "address": "13 Trần Hưng Đạo, Huế"
+    },
+    {
+      "id": 2,
+      "name": "Ngô Văn Vũ",
+      "dateOfBirth": "1990/10/20",
+      "gender": "Nam",
+      "iDCard": "191793572",
+      "phoneNumber": "0911899581",
+      "email": "VuNgo@gmail.com",
+      "typeCustomer": 1,
+      "address": "14 Phan Bội Châu, Đà Nẳng"
+    },
+    {
+      "id": 3,
+      "name": "Phạm Thị ÁNh Phúc",
+      "dateOfBirth": "2000/10/10",
+      "gender": "Nử",
+      "iDCard": "191794091",
+      "phoneNumber": "0911234581",
+      "email": "Phuc.Pham897@gmail.com",
+      "typeCustomer": 4,
+      "address": "20 Trần Hưng Đạo, Hồ Chí Minh"
+    },
+    {
+      "id": 4,
+      "name": "Hồ Thị Thu Thảo",
+      "dateOfBirth": "1993/09/08",
+      "gender": "Nữ",
+      "iDCard": "191791081",
+      "phoneNumber": "0911890981",
+      "email": "Thao.Ho@gmail.com",
+      "typeCustomer": 1,
+      "address": "50 Trần Hưng Đạo, Huế"
+    },
+    {
+      "id": 5,
+      "name": "Trần Văn Thanh",
+      "dateOfBirth": "2001/09/15",
+      "gender": "Nam",
+      "iDCard": "191714681",
+      "phoneNumber": "0911801581",
+      "email": "Thanh.Tran123@gmail.com",
+      "typeCustomer": 3,
+      "address": "Phan Thúc Duyện, Đà Nẳng"
+    },
+    {
+      "id": 6,
+      "name": "Hoàng Tất Đạt",
+      "dateOfBirth": "2005/01/01",
+      "gender": "Nam",
+      "iDCard": "191791291",
+      "phoneNumber": "0911899181",
+      "email": "Dat.hoang123@gmail.com",
+      "typeCustomer": 1,
+      "address": "60 Trường Chinh, Đà Nẳng"
+    },
+    {
+      "id": 7,
+      "name": "Trần Thị Tín",
+      "dateOfBirth": "2005/10/20",
+      "gender": "Nữ",
+      "iDCard": "191794891",
+      "phoneNumber": "0911899891",
+      "email": "tin.tran891@gmail.com",
+      "typeCustomer": 2,
+      "address": "05 Trần Văn Dư, Huế"
+    }
+  ],
+  "typeCustomer": [
+    {
+      "id": 1,
+      "name": "Member"
+    },
+    {
+      "id": 2,
+      "name": "Silver"
+    },
+    {
+      "id": 3,
+      "name": "Gold"
+    },
+    {
+      "id": 4,
+      "name": "Platinium"
+    },
+    {
+      "id": 5,
+      "name": "Diamond"
+    }
+  ],
+  "contract": [
+    {
+      "id": 2,
+      "idContract": "CO-0002",
+      "customerId": 2,
+      "facilityId": 1,
+      "dayIn": "09/12/2023",
+      "dayOut": "14/12/2023",
+      "deposits": "900"
+    },
+    {
+      "idContract": "CO-0003",
+      "customerId": 5,
+      "facilityId": 6,
+      "dayIn": "2023-04-12",
+      "dayOut": "2023-04-30",
+      "deposits": "20000",
+      "id": 3
+    }
+  ]
+}

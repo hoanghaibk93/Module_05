@@ -6,6 +6,11 @@ import {ServiceList} from "./components/service/serviceList";
 import {ServiceUpdate} from "./components/service/serviceUpdate";
 import {ServiceCreate} from "./components/service/serviceCreate";
 import {CustomerList} from "./components/customer/customerList";
+import {CustomerUpdate} from "./components/customer/customerUpdate";
+import {CustomerCreate} from "./components/customer/customerCreate";
+import {ContractCreate} from "./components/contract/contractCreate";
+import {ContractList} from "./components/contract/contractList";
+import {FacilityList} from "./components/service/facilityList";
 
 
 function App() {
@@ -15,7 +20,12 @@ function App() {
             {/*<ServiceList/>*/}
             {/*<ServiceUpdate/>*/}
             {/*<ServiceCreate/>*/}
-            <CustomerList/>
+            {/*<CustomerList/>*/}
+            {/*<CustomerUpdate/>*/}
+            {/*<CustomerCreate/>*/}
+            {/*<ContractCreate/>*/}
+            {/*<ContractList/>*/}
+            <FacilityList/>
             <Footer/>
         </>
     );
