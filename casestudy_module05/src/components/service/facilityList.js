@@ -90,7 +90,7 @@ export function FacilityList() {
             <div className="row container-fluid">
 
                 {dataFurama.facilities.map((facility, index) => (
-                        <div className="col-12 col-sm-6 col-md-3">
+                        <div key={index} className="col-12 col-sm-6 col-md-3">
 
 
                             <div className="card">

@@ -186,7 +186,7 @@
       "name": "Rent by hour"
     }
   ],
-  "customer": [
+  "customers": [
     {
       "id": 1,
       "name": "Đoàn Thành Tiến",
@@ -287,24 +287,62 @@
       "name": "Diamond"
     }
   ],
-  "contract": [
+  "contracts": [
     {
-      "id": 2,
-      "idContract": "CO-0002",
-      "customerId": 2,
+      "idContract": "C-001",
+      "customerId": 1,
       "facilityId": 1,
-      "dayIn": "09/12/2023",
-      "dayOut": "14/12/2023",
-      "deposits": "900"
+      "checkInDate": "2023/04/03",
+      "checkOutDate": "2023/04/07",
+      "deposit": "200000"
     },
     {
-      "idContract": "CO-0003",
+      "idContract": "C-002",
+      "customerId": 2,
+      "facilityId": 3,
+      "checkInDate": "2023/05/04",
+      "checkOutDate": "2023/06/04",
+      "deposit": "200000"
+    },
+    {
+      "idContract": "C-003",
+      "customerId": 3,
+      "facilityId": 1,
+      "checkInDate": "2023/02/25",
+      "checkOutDate": "2023/02/27",
+      "deposit": "250000"
+    },
+    {
+      "idContract": "C-004",
+      "customerId": 4,
+      "facilityId": 2,
+      "checkInDate": "2023/06/10",
+      "checkOutDate": "2023/06/15",
+      "deposit": "200000"
+    },
+    {
+      "idContract": "C-005",
       "customerId": 5,
-      "facilityId": 6,
-      "dayIn": "2023-04-12",
-      "dayOut": "2023-04-30",
-      "deposits": "20000",
-      "id": 3
+      "facilityId": 2,
+      "checkInDate": "2023/05/04",
+      "checkOutDate": "2023/06/04",
+      "deposit": "200000"
+    },
+    {
+      "idContract": "C-006",
+      "customerId": 6,
+      "facilityId": 3,
+      "checkInDate": "2023/06/11",
+      "checkOutDate": "2023/06/13",
+      "deposit": "250000"
+    },
+    {
+      "idContract": "C-007",
+      "customerId": 7,
+      "facilityId": 1,
+      "checkInDate": "2023/07/04",
+      "checkOutDate": "2023/08/09",
+      "deposit": "300000"
     }
   ]
 }

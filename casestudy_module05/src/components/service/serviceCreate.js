@@ -9,7 +9,7 @@ export class ServiceCreate extends Component {
                     className="bg-image"
                     style={{
                         backgroundImage:
-                            'url("https://mdbootstrap.com/img/Photos/new-templates/tables/img2.jpg")'
+                            'url("image2/background.jpg")'
                     }}
                 >
                     <div className="mask d-flex align-items-center h-100 gradient-custom-3">

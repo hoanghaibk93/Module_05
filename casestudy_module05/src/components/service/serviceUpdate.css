@@ -26,3 +26,7 @@
     margin: 100px auto 50px;
     border-radius: .5rem;
 }
+.bg-image{
+    background-size: cover;
+    height: 100%;
+}
