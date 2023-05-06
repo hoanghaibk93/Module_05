@@ -51,10 +51,13 @@ export function MedicalForm() {
 
                     },
                 )}
+                onSubmit={(values) => {
+                    console.log(values);
+                }}
 
             >
                 <div className="form-medical">
-                    <h1>TỜ khai y tế</h1>
+                    <h1 className="text-center text-primary">Tờ khai y tế</h1>
                     <Form>
                         <div className="form-group">
                             <label htmlFor="">Họ tên</label>
@@ -104,8 +107,8 @@ export function MedicalForm() {
                         </div>
                         <ErrorMessage name='department' component='span' className='form-err'/>
                         <div className="form-check form-check-inline">
-                            <Field className="form-check-input" name="healthCard" type="checkbox" id="inlineCheckbox1" value="option1"/>
-                            <label className="form-check-label" htmlFor="inlineCheckbox1">Có thể bảo hiểm ý tế</label>
+                            <Field className="form-check-input" name="healthCard" type="checkbox" id="inlineCheckbox1" value="Có"/>
+                            <label className="form-check-label" htmlFor="inlineCheckbox1">Có thẻ bảo hiểm ý tế</label>
                         </div>
                         <h4>Địa chỉ liên lạc tại Việt Nam</h4>
                         <div className="form-group">
@@ -152,59 +155,58 @@ export function MedicalForm() {
 
                         <h4>Trong vòng 14 ngày qua, Anh/Chị có thấy xuất hiện dấu hiệu nào sau đây không?</h4>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Sốt" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Sốt" id="a"/>
+                            <label className="form-check-label" htmlFor="a">
                                 Sốt
                             </label>
                         </div>
-                        <ErrorMessage name='information' component='span' className='form-err'/>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Ho" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Ho" id="b"/>
+                            <label className="form-check-label" htmlFor="b">
                                 Ho
                             </label>
                         </div>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Khó thở" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Khó thở" id="cd"/>
+                            <label className="form-check-label" htmlFor="c">
                                 Khó thở
                             </label>
                         </div>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Viêm phổi" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Viêm phổi" id="d" />
+                            <label className="form-check-label" htmlFor="d">
                                 Viêm phổi
                             </label>
                         </div>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Đau họng" id="flexCheckChecked" checked/>
+                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Đau họng" id="flexCheckDefault" />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Đau họng
                             </label>
                         </div>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Mệt mỏi" id="flexCheckChecked" checked/>
+                            <Field className="form-check-input" name="informationOne" type="checkbox" value="Mệt mỏi" id="flexCheckDefault" />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
                                 Mệt mỏi
                             </label>
                         </div>
                         <h4>Trong vòng 14 ngày qua, Anh/Chị có tiếp xúc với?</h4>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationTwo" type="checkbox" value="" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                            <Field className="form-check-input" name="informationTwo" type="checkbox" value="Người bệnh hoặc nghi ngờ, mắc bệnh VOVID-19" id="cb1" />
+                            <label className="form-check-label" htmlFor="cb1">
                                 Người bệnh hoặc nghi ngờ, mắc bệnh VOVID-19
                             </label>
                         </div>
                         <div className="form-check">
-                            <Field className="form-check-input" name="informationTwo" type="checkbox" value="" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                            <Field className="form-check-input" name="informationTwo" type="checkbox" value="Người từ nước có bệnh COVID-19" id="cb2" />
+                            <label className="form-check-label" htmlFor="cb2">
                                 Người từ nước có bệnh COVID-19
                             </label>
                         </div>
                         <div className="form-check">
-                            <Field className="form-check-input" nname="informationTwo" type="checkbox" value="" id="flexCheckChecked" checked/>
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
-                                Người có biểu hiện(Sốt, ho, khó thở, viêm phổi)
+                            <Field className="form-check-input" name="informationTwo" type="checkbox" value="Người có biểu hiện (sốt,ho,khó thở,viêm phổi)" id="cb3" />
+                            <label className="form-check-label" htmlFor="cb3">
+                                Người có biểu hiện (sốt,ho,khó thở,viêm phổi)
                             </label>
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>

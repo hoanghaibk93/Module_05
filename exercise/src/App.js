@@ -14,8 +14,8 @@ function App() {
      {/*<CounterTwo/>*/}
      {/*   <Counter/>*/}
      {/*<Register/>*/}
-     {/*<ContactForm/>*/}
-        <MedicalForm/>
+     <ContactForm/>
+     {/*   <MedicalForm/>*/}
     </div>
   );
 }

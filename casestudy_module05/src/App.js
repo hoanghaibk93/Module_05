@@ -21,10 +21,10 @@ function App() {
             {/*<ServiceCreate/>*/}
             {/*<CustomerList/>*/}
             {/*<CustomerUpdate/>*/}
-            {/*<CustomerCreate/>*/}
+            <CustomerCreate/>
             {/*<ContractCreate/>*/}
             {/*<ContractList/>*/}
-            <FacilityList/>
+            {/*<FacilityList/>*/}
             <Footer/>
         </>
     );

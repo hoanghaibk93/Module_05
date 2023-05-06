@@ -38,8 +38,8 @@
 /*}*/
 .form-contact{
   width: 50%;
-  display: flex;
   justify-content: center;
+  margin: 50px auto;
 }
 .form-err{
   color: red;
@@ -47,4 +47,5 @@
 .form-medical{
   width: 50%;
   justify-content: center;
+  margin: 50px auto;
 }

@@ -1,8 +1,9 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import {toast, ToastContainer} from "react-toastify";
-import {Audio} from 'react-loader-spinner';
+import {Vortex} from 'react-loader-spinner';
 import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
 
 export function ContactForm() {
     return (
@@ -19,7 +20,7 @@ export function ContactForm() {
                         .required("Tên không được để trống"),
                     email: Yup.string()
                         .required("Email không được để trống")
-                        .matches(/^[a-zA-Z0-9]+[+-]@[a-zA-Z0-9]+$/, "Nhập đúng theo định dạng"),
+                        .matches(/^[a-zA-Z0-9+-]+@[a-zA-Z0-9-]+$/, "Nhập đúng theo định dạng"),
                     phone: Yup.number()
                         .required("Số điện thoại không được để trống")
                         .integer("Số điện thoại phải là số nguyên")
@@ -27,16 +28,25 @@ export function ContactForm() {
                 }
                 onSubmit={(values, {setSubmitting}) => {
                     setTimeout(() => {
+                        console.log(values)
                         setSubmitting(false);
-                        toast(`Contact ${values.name} ok`);
+                        toast.success(`Contact ${values.name} finally`,{position: "top-right",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",});
                     }, 1000);
                 }}
             >
                 {
                     ({isSubmitting}) => (
-                        <h1>Contact form</h1>,
+                        <div className="form-contact">
+                        <h1>Contact form</h1>
                             <Form>
-                                <div className="form-contact">
+
                                     <div className="form-group">
                                         <label htmlFor="">Name</label>
                                         <Field type="text" className="form-control" name="name" id=""
@@ -67,14 +77,14 @@ export function ContactForm() {
                                     <ErrorMessage name='message' component='span' className='form-err'/>
                                     {
                                         isSubmitting ?
-                                            <Audio
+                                            <Vortex
+                                                visible={true}
                                                 height="80"
                                                 width="80"
-                                                radius="9"
-                                                color="green"
-                                                ariaLabel="loading"
-                                                wrapperStyle
-                                                wrapperClass
+                                                ariaLabel="vortex-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="vortex-wrapper"
+                                                colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
                                             />
                                             :
 
@@ -82,8 +92,9 @@ export function ContactForm() {
 
                                     }
                                     <ToastContainer/>
-                                </div>
+
                             </Form>
+                        </div>
                     )
                 }
 
