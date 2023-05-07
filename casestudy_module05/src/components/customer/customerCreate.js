@@ -12,7 +12,7 @@ export function CustomerCreate() {
                 initialValues={{
                     name: '',
                     dateOfBirth: '',
-                    gender: '',
+                    gender: '0',
                     iDCard: '',
                     phoneNumber: '',
                     email: '',
@@ -22,7 +22,7 @@ export function CustomerCreate() {
                 validationSchema={Yup.object({
                     name: Yup.string()
                         .required('Tên không được để trống, vui lòng nhập tên')
-                        .matches(/^[^\d]+$|(?<!\s)\b\w/, 'Tên phải đúng theo định dạng không có số, các kỹ tự đàu tiên của mỗi từ phải viết hoa'),
+                        .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)*$/, 'Tên phải đúng theo định dạng không có số, các ký tự đàu tiên của mỗi từ phải viết hoa'),
                     dateOfBirth: Yup.string()
                         .required('Ngày sinh không được để trống'),
                     iDCard: Yup.string()
@@ -30,10 +30,10 @@ export function CustomerCreate() {
                         .matches(/\b\d{9}\b|\b\d{12}\b/, 'CCCN phải đúng theo định dạng, 9 hoặc 12 số'),
                     phoneNumber: Yup.string()
                         .required('Số điện thoại không được để trống')
-                        .matches(/\b090\d{7}\b|\b091\d{7}\b|\b(84)+90\d{7}\b|(84)+91\d{7}\b/, '•\tSố điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx'),
+                        .matches(/(^090\d{7}$)|(^091\d{7}$)|(^\(84\)\+90\d{7}$)|(^\(84\)\+91\d{7}$)/, 'Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx'),
                     email: Yup.string()
                         .required('Email không được để trống')
-                        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+                        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Email phải đúng định dạng Example@gmail.com')
 
                 })}
                 onSubmit={(values, {setSubmitting}) => {
@@ -199,6 +199,7 @@ export function CustomerCreate() {
                                                                 name="address"
                                                             />
                                                         </div>
+                                                        <div>
                                                         <label className="form-label">Loại khách</label>
                                                         <span className="text-danger">*</span>
                                                         <Field
@@ -212,6 +213,7 @@ export function CustomerCreate() {
                                                             <option value="2">Two</option>
                                                             <option value="3">Three</option>
                                                         </Field>
+                                                        </div>
                                                         {isSubmitting ?
                                                             <Vortex
                                                                 visible={true}

@@ -2,8 +2,8 @@ import './App.css';
 import {Header} from "./components/common/header";
 import {Footer} from "./components/common/footer";
 import React from "react";
-import {ServiceUpdate} from "./components/service/serviceUpdate";
-import {ServiceCreate} from "./components/service/serviceCreate";
+import {FacilityUpdate} from "./components/service/facilityUpdate";
+import {FacilityCreate} from "./components/service/facilityCreate";
 import {CustomerList} from "./components/customer/customerList";
 import {CustomerUpdate} from "./components/customer/customerUpdate";
 import {CustomerCreate} from "./components/customer/customerCreate";
@@ -17,11 +17,11 @@ function App() {
         <>
             <Header/>
             {/*<ServiceList/>*/}
-            {/*<ServiceUpdate/>*/}
-            {/*<ServiceCreate/>*/}
+            <FacilityUpdate/>
+            {/*<FacilityCreate/>*/}
             {/*<CustomerList/>*/}
             {/*<CustomerUpdate/>*/}
-            <CustomerCreate/>
+            {/*<CustomerCreate/>*/}
             {/*<ContractCreate/>*/}
             {/*<ContractList/>*/}
             {/*<FacilityList/>*/}
