@@ -17,12 +17,12 @@ function App() {
         <>
             <Header/>
             {/*<ServiceList/>*/}
-            <FacilityUpdate/>
+            {/*<FacilityUpdate/>*/}
             {/*<FacilityCreate/>*/}
             {/*<CustomerList/>*/}
             {/*<CustomerUpdate/>*/}
             {/*<CustomerCreate/>*/}
-            {/*<ContractCreate/>*/}
+            <ContractCreate/>
             {/*<ContractList/>*/}
             {/*<FacilityList/>*/}
             <Footer/>

@@ -1,0 +1,39 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "book number one",
+      "quantity": 10
+    },
+    {
+      "id": 2,
+      "title": "book number two",
+      "quantity": 100
+    },
+    {
+      "id": 3,
+      "title": "book number three",
+      "quantity": 120
+    },
+    {
+      "title": "ẻyery",
+      "quantity": "ẻyery",
+      "id": 4
+    },
+    {
+      "title": "segsg",
+      "quantity": "123",
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
