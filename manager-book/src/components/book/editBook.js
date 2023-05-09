@@ -3,18 +3,29 @@ import * as Yup from 'yup';
 import {toast, ToastContainer} from "react-toastify";
 import {Vortex} from 'react-loader-spinner';
 import 'react-toastify/dist/ReactToastify.css';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import * as booksService from "../../services/booksService";
 import {NavLink} from "react-router-dom";
+import {useParams} from "react-router-dom";
 export function EditBook() {
-
+  const [book, setBook] = useState();
+  const param = useParams();
+  useEffect(()=>{
+      const fetchApi = async ()=>{
+          const result = await booksService.findBookById(param.id);
+          setBook(result);
+      }
+      fetchApi();
+  },[])
+    if(!book){return null};
     return (
         <>
-            <Formik
+             <Formik
                 initialValues={
                     {
-                        title: "",
-                        quantity: ""
+                        id: book?.id,
+                        title: book?.title,
+                        quantity: book?.quantity
                     }
                 }
                 validationSchema={Yup.object({
@@ -26,6 +37,7 @@ export function EditBook() {
                 onSubmit={(values, {setSubmitting}) => {
                     const updateBook = async () => {
                         await booksService.update(values);
+                        console.log(values)
                         setSubmitting(false);
                         toast.success(`Cập nhật hợp đồng: ${values.idContract} thành công `, {
                             position: "top-right",
@@ -47,6 +59,12 @@ export function EditBook() {
                             <NavLink to='/'>List</NavLink>
                             <h1>Update book</h1>
                             <Form>
+                                <div hidden className="form-group">
+                                    <label htmlFor="">id</label>
+                                    <Field type="text" className="form-control" name="id" id=""
+                                           aria-describedby="helpId"
+                                           placeholder=""/>
+                                </div>
                                 <div className="form-group">
                                     <label htmlFor="">Title</label>
                                     <Field type="text" className="form-control" name="title" id=""

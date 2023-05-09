@@ -4,7 +4,7 @@ import {List} from "./components/book/list";
 import React from "react";
 import {CreateBook} from "./components/book/createBook";
 import {Routes, Route, NavLink} from "react-router-dom";
-import {EditBook} from "./components/book/edit";
+import {EditBook} from "./components/book/editBook";
 function App() {
   return (
     <>

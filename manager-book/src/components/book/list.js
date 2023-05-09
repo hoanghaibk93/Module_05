@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import * as booksService from "../../services/booksService";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 
 export function List() {
@@ -12,6 +12,12 @@ export function List() {
         }
         fetchApi()
     })
+    const handleDelete = async (id) => {
+        await booksService.deleteBook(id);
+        let result = await booksService.findAll();
+        setBooks(result);
+    };
+
     return (
         <>
             <h1>Library</h1>
@@ -33,9 +39,10 @@ export function List() {
                     <td>{book.quantity}</td>
                     <td>
                         <button className="btn btn-primary" type="button">
-                            <NavLink style={{color: "red", textDecoration: "none"}} to={`/update/${book.id}`}>Cập nhật</NavLink>
+                            <Link style={{color: "red", textDecoration: "none"}} to={`/update/${book.id}`}>Cập nhật</Link>
                         </button>
-                        <button className="btn btn-danger" type="button">
+                        
+                        <button onClick={()=>handleDelete(book.id)} className="btn btn-danger" type="button">
                            Xóa
                         </button>
                     </td>
