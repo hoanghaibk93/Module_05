@@ -37,3 +37,12 @@ export const deleteBook = async (id)=>{
         console.log(error)
     }
 }
+export const getBook = async (id)=>{
+    try{
+       const resultDetail = await axios.get(`http://localhost:3000/books/${id}`)
+        console.log(resultDetail.data)
+        return resultDetail.data
+    } catch (error) {
+        console.log(error)
+    }
+}
