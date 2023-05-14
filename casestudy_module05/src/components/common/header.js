@@ -1,6 +1,7 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {ListImg} from "../../image";
 import './header.css'
+import {Link} from "react-router-dom";
 export class Header extends Component {
     render() {
         return (
@@ -31,13 +32,13 @@ export class Header extends Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                                 <li className="nav-item">
-                                    <a
+                                    <Link to={'/'}
                                         aria-current="page"
-                                        className="nav-link active text-white"
+                                        className="nav-link text-white"
                                         href="#"
                                     >
                                         Trang chủ
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item dropdown ">
                                     <a
@@ -69,6 +70,9 @@ export class Header extends Component {
                                                 Hướng trực diện biển
                                             </a>
                                         </li>
+                                        <li>
+                                            <Link to={`/createFacility`} className="dropdown-item">Tạo mới</Link>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li className="nav-item">
@@ -81,20 +85,45 @@ export class Header extends Component {
                                         | Room
                                     </a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link text-white" href="#">
-                                        | Tiện ích
+                                <li className="nav-item dropdown ">
+                                    <a
+                                        aria-expanded="false"
+                                        className="nav-link dropdown-toggle text-white"
+                                        data-bs-toggle="dropdown"
+                                        href="#"
+                                        id="navbarDropdown"
+                                        role="button"
+                                    >
+                                        | Khách hàng
                                     </a>
+                                    <ul aria-labelledby="navbarDropdown" className="dropdown-menu">
+                                        <li>
+                                            <Link to={`/customer`} className="dropdown-item">Khách hàng</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={`/customerCreate`} className="dropdown-item">Tạo mới</Link>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link text-white" href="#">
-                                        | Tin tức
+                                <li className="nav-item dropdown ">
+                                    <a
+                                        aria-expanded="false"
+                                        className="nav-link dropdown-toggle text-white"
+                                        data-bs-toggle="dropdown"
+                                        href="#"
+                                        id="navbarDropdown"
+                                        role="button"
+                                    >
+                                        | Hợp đồng
                                     </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link text-white" href="#">
-                                        | Liên hệ
-                                    </a>
+                                    <ul aria-labelledby="navbarDropdown" className="dropdown-menu">
+                                        <li>
+                                            <Link to={`/contract`} className="dropdown-item">Hợp đồng</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={`/contractCreate`} className="dropdown-item">Tạo mới</Link>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                             <form className="d-flex">

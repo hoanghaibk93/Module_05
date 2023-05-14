@@ -3,9 +3,22 @@ import * as Yup from 'yup';
 import {toast, ToastContainer} from "react-toastify";
 import {Vortex} from 'react-loader-spinner';
 import 'react-toastify/dist/ReactToastify.css';
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router";
+import * as customerService from "../../service/customerService";
+
 
 export function CustomerCreate() {
+    const navigate = useNavigate();
+    const [typeCustomerList, setTypeCustomerList] = useState([]);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            let resultTypeCustomer = await customerService.findAllTypeCustomer();
+            setTypeCustomerList(resultTypeCustomer);
+        };
+        fetchApi();
+    }, []);
     return (
         <>
             <Formik
@@ -33,11 +46,12 @@ export function CustomerCreate() {
                         .matches(/(^090\d{7}$)|(^091\d{7}$)|(^\(84\)\+90\d{7}$)|(^\(84\)\+91\d{7}$)/, 'Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx'),
                     email: Yup.string()
                         .required('Email không được để trống')
-                        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Email phải đúng định dạng Example@gmail.com')
+                        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email phải đúng định dạng Example@gmail.com')
 
                 })}
                 onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
+                    const createCustomer = async () => {
+                        await customerService.create({...values,typeCustomer: +values.typeCustomer});
                         console.log(values);
                         setSubmitting(false);
                         toast.success(`Tạo ${values.name} thành công `, {
@@ -50,7 +64,9 @@ export function CustomerCreate() {
                             progress: undefined,
                             theme: "colored",
                         });
-                    }, 1000);
+                    };
+                    createCustomer();
+                    navigate('/customer');
                 }}>
                 {
                     ({isSubmitting}) => (
@@ -111,7 +127,7 @@ export function CustomerCreate() {
                                                                     id="inlineRadio1"
                                                                     name="gender"
                                                                     type="radio"
-                                                                    value="0"
+                                                                    value="Nam"
                                                                 />
                                                                 <label className="form-check-label"
                                                                        htmlFor="inlineRadio1">
@@ -124,7 +140,7 @@ export function CustomerCreate() {
                                                                     id="inlineRadio2"
                                                                     name="gender"
                                                                     type="radio"
-                                                                    value="1"
+                                                                    value="Nữ"
                                                                 />
                                                                 <label className="form-check-label"
                                                                        htmlFor="inlineRadio2">
@@ -137,7 +153,7 @@ export function CustomerCreate() {
                                                                     id="inlineRadio3"
                                                                     name="gender"
                                                                     type="radio"
-                                                                    value="2"
+                                                                    value="Khác"
                                                                 />
                                                                 <label className="form-check-label"
                                                                        htmlFor="inlineRadio3">
@@ -200,19 +216,32 @@ export function CustomerCreate() {
                                                             />
                                                         </div>
                                                         <div>
-                                                        <label className="form-label">Loại khách</label>
-                                                        <span className="text-danger">*</span>
-                                                        <Field
-                                                            as="select"
-                                                            aria-label="Default select example"
-                                                            className="form-select"
-                                                            name="typeCustomer"
-                                                            style={{height: 50, marginBottom: 30}}
-                                                        >
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </Field>
+                                                            <label className="form-label">Loại khách</label>
+                                                            <span className="text-danger">*</span>
+                                                            {/*<Field*/}
+                                                            {/*    as="select"*/}
+                                                            {/*    aria-label="Default select example"*/}
+                                                            {/*    className="form-select"*/}
+                                                            {/*    name="typeCustomer"*/}
+                                                            {/*    style={{height: 50, marginBottom: 30}}*/}
+                                                            {/*>*/}
+                                                            {/*    <option value="1">One</option>*/}
+                                                            {/*    <option value="2">Two</option>*/}
+                                                            {/*    <option value="3">Three</option>*/}
+                                                            {/*</Field>*/}
+                                                            <Field
+                                                                as="select"
+                                                                aria-label="Default select example"
+                                                                className="form-select"
+                                                                name="typeCustomer"
+                                                                style={{height: 50, marginBottom: 30}}
+                                                            >
+                                                                {typeCustomerList.map((typeCustomer, index) => (
+                                                                    <option key={index}
+                                                                            value={typeCustomer.id}>{typeCustomer.name}</option>
+                                                                ))}
+
+                                                            </Field>
                                                         </div>
                                                         {isSubmitting ?
                                                             <Vortex
@@ -245,6 +274,7 @@ export function CustomerCreate() {
                         </section>
                     )
                 }
+
             </Formik>
         </>
     );

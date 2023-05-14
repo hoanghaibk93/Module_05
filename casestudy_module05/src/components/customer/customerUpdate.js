@@ -3,20 +3,48 @@ import * as Yup from 'yup';
 import {toast, ToastContainer} from "react-toastify";
 import {Vortex} from 'react-loader-spinner';
 import 'react-toastify/dist/ReactToastify.css';
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router";
+import * as customerService from "../../service/customerService";
+import {useParams} from "react-router-dom";
 export function CustomerUpdate() {
+    const navigate = useNavigate();
+    const [typeCustomerList, setTypeCustomerList] = useState([]);
+    const [customer, setCustomer] = useState();
+    const param = useParams();
+
+    useEffect(() => {
+        const data = async () => {
+            const result = await customerService.findCustomerById(param.id);
+            setCustomer(result);
+        };
+        data();
+    }, [param.id]);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            let resultTypeCustomer = await customerService.findAllTypeCustomer();
+            setTypeCustomerList(resultTypeCustomer);
+        };
+        fetchApi();
+    }, []);
+    if (!customer) {
+        return null;
+    }
+
     return (
         <>
             <Formik
                 initialValues={{
-                    name: '',
-                    dateOfBirth: '',
-                    gender: '0',
-                    iDCard: '',
-                    phoneNumber: '',
-                    email: '',
-                    typeCustomer: '',
-                    address: ''
+                    id: customer?.id,
+                    name: customer?.name,
+                    dateOfBirth: customer?.dateOfBirth,
+                    gender: customer?.gender,
+                    iDCard: customer?.iDCard,
+                    phoneNumber: customer?.phoneNumber,
+                    email: customer?.email,
+                    typeCustomer: customer?.typeCustomer,
+                    address: customer?.address,
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
@@ -32,11 +60,12 @@ export function CustomerUpdate() {
                         .matches(/(^090\d{7}$)|(^091\d{7}$)|(^\(84\)\+90\d{7}$)|(^\(84\)\+91\d{7}$)/, 'Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx'),
                     email: Yup.string()
                         .required('Email không được để trống')
-                        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Email phải đúng định dạng Example@gmail.com')
+                        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email phải đúng định dạng Example@gmail.com')
 
                 })}
                 onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
+                    const updateCustomer = async () => {
+                        await customerService.update({...values,typeCustomer: +values.typeCustomer});
                         console.log(values);
                         setSubmitting(false);
                         toast.success(`Cập nhật ${values.name} thành công `, {
@@ -49,7 +78,9 @@ export function CustomerUpdate() {
                             progress: undefined,
                             theme: "colored",
                         });
-                    }, 1000);
+                    };
+                    updateCustomer();
+                    navigate('/customer');
                 }}>
                 {
                     ({isSubmitting}) => (
@@ -70,6 +101,18 @@ export function CustomerUpdate() {
                                                         Cập nhật khách hàng
                                                     </h2>
                                                     <Form>
+                                                        <div hidden className="form-outline mb-4">
+                                                            <label className="form-label" htmlFor="form3Example1cg">
+                                                                Mã khách hàng
+                                                            </label>
+                                                            <span className="text-danger">*</span>
+                                                            <Field
+                                                                className="form-control form-control-lg"
+                                                                id="form3Example1cg"
+                                                                type="number"
+                                                                name="id"
+                                                            />
+                                                        </div>
                                                         <div className="form-outline mb-4">
                                                             <label className="form-label" htmlFor="form3Example1cg">
                                                                 Họ và tên
@@ -110,7 +153,7 @@ export function CustomerUpdate() {
                                                                     id="inlineRadio1"
                                                                     name="gender"
                                                                     type="radio"
-                                                                    value="0"
+                                                                    value="Nam"
                                                                 />
                                                                 <label className="form-check-label"
                                                                        htmlFor="inlineRadio1">
@@ -123,7 +166,7 @@ export function CustomerUpdate() {
                                                                     id="inlineRadio2"
                                                                     name="gender"
                                                                     type="radio"
-                                                                    value="1"
+                                                                    value="Nữ"
                                                                 />
                                                                 <label className="form-check-label"
                                                                        htmlFor="inlineRadio2">
@@ -136,7 +179,7 @@ export function CustomerUpdate() {
                                                                     id="inlineRadio3"
                                                                     name="gender"
                                                                     type="radio"
-                                                                    value="2"
+                                                                    value="Khác"
                                                                 />
                                                                 <label className="form-check-label"
                                                                        htmlFor="inlineRadio3">
@@ -198,19 +241,34 @@ export function CustomerUpdate() {
                                                                 name="address"
                                                             />
                                                         </div>
-                                                        <label className="form-label">Loại khách</label>
-                                                        <span className="text-danger">*</span>
-                                                        <Field
-                                                            as="select"
-                                                            aria-label="Default select example"
-                                                            className="form-select"
-                                                            name="typeCustomer"
-                                                            style={{height: 50, marginBottom: 30}}
-                                                        >
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </Field>
+                                                        <div>
+                                                            <label className="form-label">Loại khách</label>
+                                                            <span className="text-danger">*</span>
+                                                            {/*<Field*/}
+                                                            {/*    as="select"*/}
+                                                            {/*    aria-label="Default select example"*/}
+                                                            {/*    className="form-select"*/}
+                                                            {/*    name="typeCustomer"*/}
+                                                            {/*    style={{height: 50, marginBottom: 30}}*/}
+                                                            {/*>*/}
+                                                            {/*    <option value="1">One</option>*/}
+                                                            {/*    <option value="2">Two</option>*/}
+                                                            {/*    <option value="3">Three</option>*/}
+                                                            {/*</Field>*/}
+                                                            <Field
+                                                                as="select"
+                                                                aria-label="Default select example"
+                                                                className="form-select"
+                                                                name="typeCustomer"
+                                                                style={{height: 50, marginBottom: 30}}
+                                                            >
+                                                                {typeCustomerList.map((typeCustomer, index) => (
+                                                                    <option key={index}
+                                                                            value={typeCustomer.id}>{typeCustomer.name}</option>
+                                                                ))}
+
+                                                            </Field>
+                                                        </div>
                                                         {isSubmitting ?
                                                             <Vortex
                                                                 visible={true}
@@ -242,6 +300,7 @@ export function CustomerUpdate() {
                         </section>
                     )
                 }
+
             </Formik>
         </>
     );

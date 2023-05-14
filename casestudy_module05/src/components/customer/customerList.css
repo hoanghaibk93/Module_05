@@ -29,3 +29,13 @@ tbody td {
     margin: 100px auto 50px;
     border-radius: .5rem;
 }
+.color{
+    color: black;
+}
+.pagination{
+    padding-left: 500px;
+    padding-top: 20px;
+}
+.active{
+    background-color: black;
+}

@@ -3,14 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
+import {Header} from "./components/common/header";
+import {Footer} from "./components/common/footer";
+import {FacilityUpdate} from "./components/facility/facilityUpdate";
+import {FacilityCreate} from "./components/facility/facilityCreate";
 // import './src/bootstrap-5.1.3-dist/css/bootstrap.min.css'
 // import './src/bootstrap-5.1.3-dist/js/bootstrap.bundle'
 // import './src/bootstrap-5.1.3-dist/js/bootstrap.min'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <BrowserRouter>
+            <Header/>
+            <App/>
+            <Footer/>
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

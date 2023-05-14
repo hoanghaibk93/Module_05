@@ -1,7 +1,57 @@
 import './customerList.css';
-import dataFurama from '../../data/dataFurama.json';
+import React, {useEffect, useState} from "react";
+
+import {toast} from "react-toastify";
+import * as customerService from "../../service/customerService";
+import {Link} from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 export function CustomerList() {
+    const [customers, setCustomers] = useState([]);
+    const [customerTypes, setCustomerTypes] = useState([]);
+    const [customerDetail, setCustomerDetail] = useState();
+    //Phân trang
+    const [perPage] = useState(4);
+    const [currentPage, setCurrentPage] = useState(0);
+
+    //Phân trang
+    const pageCount = Math.ceil(customers.length / perPage);
+    const offset = currentPage * perPage;
+    const currentCustomerList = customers.slice(offset, offset + perPage);
+    const handlePageClick = (pageCurrent) => {
+        setCurrentPage(pageCurrent.selected);
+    };
+    useEffect(() => {
+        const fetchApi = async () => {
+            const listCustomer = await customerService.findAll();
+            const listTypeCustomer = await customerService.findAllTypeCustomer();
+            setCustomers(listCustomer);
+            setCustomerTypes(listTypeCustomer);
+        };
+        fetchApi();
+    }, []);
+    const getData = async (id) => {
+        const data = await customerService.getCustomer(id);
+        setCustomerDetail(data);
+    };
+    const handleDelete = async () => {
+        await customerService.deleteCustomer(customerDetail.id);
+        let result = await customerService.findAll();
+        setCustomers(result);
+        toast.success(`Xóa ${customerDetail.name} thành công `, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    };
+    if (!customers) {
+        return null;
+    }
     return (
         <>
             <>
@@ -43,7 +93,7 @@ export function CustomerList() {
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        {dataFurama.customers.map((customer, index) => (
+                                                        {currentCustomerList.map((customer, index) => (
                                                             <tr key={index}>
                                                                 <th scope="row">{customer.name}</th>
                                                                 <td>{customer.dateOfBirth}</td>
@@ -51,61 +101,54 @@ export function CustomerList() {
                                                                 <td>{customer.iDCard}</td>
                                                                 <td>{customer.phoneNumber}</td>
                                                                 <td>{customer.email}</td>
-                                                                <td>{customer.typeCustomer}</td>
+                                                                {/*<td>{customer.typeCustomer}</td>*/}
+                                                                <td>
+                                                                    {customerTypes.find(typeCustomer123 => customer.typeCustomer === typeCustomer123.id)?.name}
+                                                                </td>
                                                                 <td>{customer.address}</td>
                                                                 <td>
-                                                                    <button className="btn btn-primary" type="button">
-                                                                        Cập nhật
-                                                                    </button>
+                                                                    <Link to={`/customerUpdate/${customer.id}`}
+                                                                          className="btn btn-primary">Cập
+                                                                        nhật</Link>
                                                                 </td>
                                                                 <td>
-                                                                    {/* Button trigger modal */}
-                                                                    <button
-                                                                        className="btn btn-danger"
-                                                                        data-bs-target="#exampleModal"
-                                                                        data-bs-toggle="modal"
-                                                                        type="button"
-                                                                    >
+                                                                    {/* Modal */}
+                                                                    <button onClick={() => getData(customer.id)}
+                                                                            type="button" className="btn btn-danger"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#exampleModal">
                                                                         Xóa
                                                                     </button>
-                                                                    {/* Modal */}
-                                                                    <div
-                                                                        aria-hidden="true"
-                                                                        aria-labelledby="exampleModalLabel"
-                                                                        className="modal fade"
-                                                                        id="exampleModal"
-                                                                        tabIndex={-1}
-                                                                    >
+                                                                    {/*xóa modal*/}
+                                                                    <div className="modal fade" id="exampleModal"
+                                                                         tabIndex="-1"
+                                                                         aria-labelledby="exampleModalLabel"
+                                                                         aria-hidden="true">
                                                                         <div className="modal-dialog">
                                                                             <div className="modal-content">
                                                                                 <div className="modal-header">
-                                                                                    <h5
-                                                                                        className="modal-title"
-                                                                                        id="exampleModalLabel"
-                                                                                    >
-                                                                                        Modal title
-                                                                                    </h5>
-                                                                                    <button
-                                                                                        aria-label="Close"
-                                                                                        className="btn-close"
-                                                                                        data-bs-dismiss="modal"
-                                                                                        type="button"
-                                                                                    />
+                                                                                    <h2 className="modal-title text-dark"
+                                                                                        id="exampleModalLabel">Xóa khách
+                                                                                        hàng</h2>
+                                                                                    {/*<button type="button" className="btn-close" data-bs-dismiss="modal"*/}
+                                                                                    {/*        aria-label="Close"></button>*/}
                                                                                 </div>
-                                                                                <div className="modal-body">...</div>
+                                                                                <div className="modal-body fs-4">
+                                                                                    <span className="color">Bạn có muốn xóa </span>
+                                                                                    <span
+                                                                                        className="text-danger">{customerDetail?.name}</span>
+                                                                                    <span className="color"> không?</span>
+                                                                                </div>
                                                                                 <div className="modal-footer">
-                                                                                    <button
-                                                                                        className="btn btn-secondary"
-                                                                                        data-bs-dismiss="modal"
-                                                                                        type="button"
-                                                                                    >
-                                                                                        Close
+                                                                                    <button type="button"
+                                                                                            className="btn btn-secondary"
+                                                                                            data-bs-dismiss="modal">Đóng
                                                                                     </button>
                                                                                     <button
-                                                                                        className="btn btn-primary"
+                                                                                        onClick={() => handleDelete()}
                                                                                         type="button"
-                                                                                    >
-                                                                                        Save changes
+                                                                                        className="btn btn-danger"
+                                                                                        data-bs-dismiss="modal">Xóa
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -126,35 +169,21 @@ export function CustomerList() {
                         </div>
                     </div>
                 </section>
-                <nav aria-label="Page navigation example">
-                    <ul className="pagination justify-content-center m-3">
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                Previous
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                1
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                2
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                3
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                Next
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+
+                <ReactPaginate
+                    onPageChange={handlePageClick}
+                    pageCount={pageCount}
+                    activeClassName={'active'}
+                    containerClassName={'pagination'}
+                    marginPagesDisplayed={2}
+                    previousLabel={'Trước'}
+                    nextLabel={'Sau'}
+                    pageClassName={'page-link'}
+                    nextClassName={'page-item'}
+                    nextLinkClassName={'page-link'}
+                    previousClassName={'page-item'}
+                    previousLinkClassName={'page-link'}
+                />
             </>
 
         </>

@@ -1,12 +1,31 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './serviceUpdate.css';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {toast, ToastContainer} from "react-toastify";
 import {Vortex} from "react-loader-spinner";
+import * as facilityService from '../../service/facilityService';
+import {useNavigate} from "react-router";
 
-export function FacilityUpdate() {
-    const [typeFacility, setTypeFacility] = useState(1);
+export function FacilityCreate() {
+    const navigate = useNavigate();
+    const [typeFacilityList, setTypeFacilityList] = useState([]);
+    const [freeServiceList, setFreeServiceList] = useState([]);
+    const [typeRentalList, setTypeRentalList] = useState([]);
+    const [typeFacilityDetail, setTypeFacilityDetail] = useState('3');
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            let resultTypeFacility = await facilityService.findAllTypeFacility();
+            let resultTypeRentals = await facilityService.findAllTypeRental();
+            let resultFreeServices = await facilityService.findAllFreeService();
+            setTypeFacilityList(resultTypeFacility);
+            setTypeRentalList(resultTypeRentals);
+            setFreeServiceList(resultFreeServices);
+        };
+        fetchApi();
+    }, []);
+
     return (
         <>
             <Formik
@@ -17,12 +36,12 @@ export function FacilityUpdate() {
                     usableArea: '',
                     price: '',
                     maxRenter: '',
-                    typeRental: '',
+                    typeRental: '1',
                     roomStandard: '',
                     description: '',
                     poolArea: '',
                     floor: '',
-                    freeService: ''
+                    freeService: []
                 }}
                 validationSchema={Yup.object({
                     nameFacility: Yup.string()
@@ -49,10 +68,18 @@ export function FacilityUpdate() {
 
                 })}
                 onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
-                        console.log(values);
+                    console.log(values)
+                    const createFacility = async () => {
+                        await facilityService.create({
+                            ...values,
+                            typeRental: parseInt(values.typeRental),
+                            typeFacility: parseInt(typeFacilityDetail),
+                            freeService: values.freeService.map(freeService => parseInt(freeService))
+
+                        });
+                        console.log(values)
                         setSubmitting(false);
-                        toast.success(`Cập nhật ${values.nameFacility} thành công `, {
+                        toast.success(`Tạo ${values.nameFacility} thành công `, {
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -62,7 +89,9 @@ export function FacilityUpdate() {
                             progress: undefined,
                             theme: "colored",
                         });
-                    }, 1000);
+                    };
+                    createFacility();
+                    navigate('/')
                 }}>
                 {
                     ({isSubmitting}) => (
@@ -80,7 +109,7 @@ export function FacilityUpdate() {
                                             <div className="form" style={{borderRadius: 15}}>
                                                 <div className="form-body p-5">
                                                     <h2 className="text-uppercase text-center mt-4">
-                                                        Cập nhật dịch vụ
+                                                        Thêm mới dịch vụ
                                                     </h2>
                                                     <Form>
                                                         <div className="form-outline mb-4">
@@ -123,7 +152,19 @@ export function FacilityUpdate() {
                                                                 name="usableArea"
                                                             />
                                                         </div>
-                                                        <ErrorMessage name='usableArea' component='span'
+                                                        <div className="form-outline mb-4">
+                                                            <label className="form-label" htmlFor="form3Example4cdg">
+                                                                Giá
+                                                            </label>
+                                                            <span className="text-danger">*</span>
+                                                            <Field
+                                                                className="form-control form-control-lg"
+                                                                id="form3Example4cdg"
+                                                                type="number"
+                                                                name="price"
+                                                            />
+                                                        </div>
+                                                        <ErrorMessage name='price' component='span'
                                                                       className='form-err'/>
                                                         <div className="form-outline mb-4">
                                                             <label className="form-label" htmlFor="form5Examplecdg">
@@ -149,10 +190,11 @@ export function FacilityUpdate() {
                                                                 name="typeRental"
                                                                 style={{height: 50, marginBottom: 30}}
                                                             >
-                                                                <option value="1">Rent by year</option>
-                                                                <option value="2">Rent by month</option>
-                                                                <option value="3">Rent by day</option>
-                                                                <option value="4">Rent by hour</option>
+                                                                {typeRentalList.map((typeRental, index) => (
+                                                                    <option key={index}
+                                                                            value={typeRental.id}>{typeRental.name}</option>
+                                                                ))}
+
                                                             </Field>
                                                         </div>
                                                         <div>
@@ -164,16 +206,21 @@ export function FacilityUpdate() {
                                                                 className="form-select"
                                                                 name="typeFacility"
                                                                 style={{height: 50, marginBottom: 30}}
-                                                                onChange={(e)=>{setTypeFacility(e.target.value)}}
-                                                                value={typeFacility}
+                                                                onChange={(e) => {
+                                                                    setTypeFacilityDetail(e.target.value);
+                                                                }}
+                                                                value={typeFacilityDetail}
                                                             >
-                                                                <option value="1">Villa</option>
-                                                                <option value="2">House</option>
-                                                                <option value="3">Room</option>
+                                                                {typeFacilityList.map((type, index) => (
+                                                                    <option key={index}
+                                                                            value={type.id}>{type.name}
+                                                                    </option>
+                                                                ))}
+
                                                             </Field>
                                                         </div>
 
-                                                        {typeFacility == 1 && (
+                                                        {typeFacilityDetail === "1" && (
                                                             <div>
                                                                 <div className="form-outline mb-4">
                                                                     <label className="form-label"
@@ -238,7 +285,7 @@ export function FacilityUpdate() {
                                                                 </div>
                                                             </div>
                                                         )}
-                                                        {typeFacility == 2 && (
+                                                        {typeFacilityDetail === "2" && (
                                                             <div>
                                                                 <div className="form-outline mb-4">
                                                                     <label className="form-label"
@@ -288,7 +335,7 @@ export function FacilityUpdate() {
                                                                 </div>
                                                             </div>
                                                         )}
-                                                        {typeFacility == 3 && (
+                                                        {typeFacilityDetail === "3" && (
                                                             <div>
                                                                 <div className="form-outline mb-4">
                                                                     <label className="form-label"
@@ -296,16 +343,25 @@ export function FacilityUpdate() {
                                                                         Dịch vụ miễn phí đi kèm
                                                                     </label>
                                                                     <span className="text-danger">*</span>
-                                                                    <Field
-                                                                        className="form-control form-control-lg"
-                                                                        id="form5Examplecdg"
-                                                                        type="text"
-                                                                        name="freeService"
-                                                                    />
+                                                                    {freeServiceList.map((service, index) => (
+                                                                        <div key={index} className="form-check">
+                                                                            <Field className="form-check-input"
+                                                                                   value={service.id.toString()}
+                                                                                   name="freeService" type="checkbox"
+                                                                                   id={service.id}
+                                                                            />
+                                                                            <label className="form-check-label"
+                                                                                   htmlFor={service.id}>
+                                                                                {service.name}
+                                                                            </label>
+                                                                        </div>
+                                                                    ))}
+
                                                                 </div>
                                                                 <ErrorMessage name='freeService' component='span'
                                                                               className='form-err'/>
                                                             </div>
+
                                                         )}
                                                         {isSubmitting ?
                                                             <Vortex
@@ -323,11 +379,11 @@ export function FacilityUpdate() {
                                                                     className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                                                                     type="submit"
                                                                 >
-                                                                    Cập nhập
+                                                                    Thêm mới
                                                                 </button>
                                                             </div>
                                                         }
-                                                        <ToastContainer/>
+                                                        {/*<ToastContainer/>*/}
                                                     </Form>
                                                 </div>
                                             </div>

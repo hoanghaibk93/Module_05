@@ -1,28 +1,62 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './serviceUpdate.css';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import {Vortex} from "react-loader-spinner";
+import * as facilityService from '../../service/facilityService';
+import {useParams} from "react-router-dom";
+import {useNavigate} from "react-router";
 
-export function FacilityCreate() {
-    const [typeFacility, setTypeFacility] = useState(1);
+export function FacilityUpdate() {
+    const navigate = useNavigate();
+    const [facility, setFacility] = useState();
+    const [typeFacilityList, setTypeFacilityList] = useState([]);
+    const [freeServiceList, setFreeServiceList] = useState([]);
+    const [typeRentalList, setTypeRentalList] = useState([]);
+    const param = useParams();
+    const [typeFacilityDetail, setTypeFacilityDetail] = useState(param.typeFacility);
+
+
+    useEffect(() => {
+        const data = async () => {
+            const result = await facilityService.findFacilityById(param.id);
+            setFacility(result);
+        };
+        data();
+    }, [param.id]);
+    useEffect(() => {
+        const fetchApi = async () => {
+            let resultTypeFacility = await facilityService.findAllTypeFacility();
+            let resultTypeRentals = await facilityService.findAllTypeRental();
+            let resultFreeServices = await facilityService.findAllFreeService();
+            setTypeFacilityList(resultTypeFacility);
+            setTypeRentalList(resultTypeRentals);
+            setFreeServiceList(resultFreeServices);
+        };
+        fetchApi();
+    }, []);
+    if (!facility) {
+        return null;
+    }
+
     return (
         <>
             <Formik
                 initialValues={{
-                    nameFacility: '',
-                    img: '',
-                    typeFacility: '',
-                    usableArea: '',
-                    price: '',
-                    maxRenter: '',
-                    typeRental: '',
-                    roomStandard: '',
-                    description: '',
-                    poolArea: '',
-                    floor: '',
-                    freeService: ''
+                    id: facility?.id,
+                    nameFacility: facility?.nameFacility,
+                    img: facility?.img,
+                    typeFacility: facility?.typeFacility,
+                    usableArea: facility?.usableArea,
+                    price: facility?.price,
+                    maxRenter: facility?.maxRenter,
+                    typeRental: facility?.typeRental,
+                    roomStandard: facility?.roomStandard,
+                    description: facility?.description,
+                    poolArea: facility?.poolArea,
+                    floor: facility?.floor,
+                    freeService: facility?.freeService
                 }}
                 validationSchema={Yup.object({
                     nameFacility: Yup.string()
@@ -49,10 +83,18 @@ export function FacilityCreate() {
 
                 })}
                 onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
+                    console.log(values);
+                    const updateFacility = async () => {
+                        await facilityService.update({
+                            ...values,
+                            typeRental: parseInt(values.typeRental),
+                            typeFacility: parseInt(typeFacilityDetail),
+                            freeService: values.freeService.map(freeService => parseInt(freeService))
+
+                        });
                         console.log(values);
                         setSubmitting(false);
-                        toast.success(`Tạo ${values.nameFacility} thành công `, {
+                        toast.success(`Cập nhật ${values.nameFacility} thành công `, {
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -62,7 +104,9 @@ export function FacilityCreate() {
                             progress: undefined,
                             theme: "colored",
                         });
-                    }, 1000);
+                    };
+                    updateFacility();
+                    navigate('/');
                 }}>
                 {
                     ({isSubmitting}) => (
@@ -80,9 +124,20 @@ export function FacilityCreate() {
                                             <div className="form" style={{borderRadius: 15}}>
                                                 <div className="form-body p-5">
                                                     <h2 className="text-uppercase text-center mt-4">
-                                                        Thêm mới dịch vụ
+                                                        Cập nhật dịch vụ
                                                     </h2>
                                                     <Form>
+                                                        <div className="form-outline mb-4">
+                                                            <label className="form-label" htmlFor="form3Example0cg">
+                                                                Mã số
+                                                            </label>
+                                                            <Field
+                                                                className="form-control form-control-lg"
+                                                                id="form3Example0cg"
+                                                                type="number"
+                                                                name="id"
+                                                            />
+                                                        </div>
                                                         <div className="form-outline mb-4">
                                                             <label className="form-label" htmlFor="form3Example1cg">
                                                                 Tên
@@ -123,7 +178,19 @@ export function FacilityCreate() {
                                                                 name="usableArea"
                                                             />
                                                         </div>
-                                                        <ErrorMessage name='usableArea' component='span'
+                                                        <div className="form-outline mb-4">
+                                                            <label className="form-label" htmlFor="form3Example41cdg">
+                                                                Giá
+                                                            </label>
+                                                            <span className="text-danger">*</span>
+                                                            <Field
+                                                                className="form-control form-control-lg"
+                                                                id="form3Example41cdg"
+                                                                type="number"
+                                                                name="price"
+                                                            />
+                                                        </div>
+                                                        <ErrorMessage name='price' component='span'
                                                                       className='form-err'/>
                                                         <div className="form-outline mb-4">
                                                             <label className="form-label" htmlFor="form5Examplecdg">
@@ -149,13 +216,14 @@ export function FacilityCreate() {
                                                                 name="typeRental"
                                                                 style={{height: 50, marginBottom: 30}}
                                                             >
-                                                                <option value="1">Rent by year</option>
-                                                                <option value="2">Rent by month</option>
-                                                                <option value="3">Rent by day</option>
-                                                                <option value="4">Rent by hour</option>
+                                                                {typeRentalList.map((typeRental, index) => (
+                                                                    <option key={index}
+                                                                            value={typeRental.id}>{typeRental.name}</option>
+                                                                ))}
+
                                                             </Field>
                                                         </div>
-                                                        <div>
+                                                        <div hidden>
                                                             <label className="form-label">Loại dịch vụ</label>
                                                             <span className="text-danger">*</span>
                                                             <Field
@@ -164,16 +232,21 @@ export function FacilityCreate() {
                                                                 className="form-select"
                                                                 name="typeFacility"
                                                                 style={{height: 50, marginBottom: 30}}
-                                                                onChange={(e)=>{setTypeFacility(e.target.value)}}
-                                                                value={typeFacility}
+                                                                onChange={(e) => {
+                                                                    setTypeFacilityDetail(e.target.value);
+                                                                }}
+                                                                value={typeFacilityDetail}
                                                             >
-                                                                <option value="1">Villa</option>
-                                                                <option value="2">House</option>
-                                                                <option value="3">Room</option>
+                                                                {typeFacilityList.map((type, index) => (
+                                                                    <option key={index}
+                                                                            value={type.id}>{type.name}
+                                                                    </option>
+                                                                ))}
+
                                                             </Field>
                                                         </div>
 
-                                                        {typeFacility == 1 && (
+                                                        {typeFacilityDetail === "1" && (
                                                             <div>
                                                                 <div className="form-outline mb-4">
                                                                     <label className="form-label"
@@ -238,7 +311,7 @@ export function FacilityCreate() {
                                                                 </div>
                                                             </div>
                                                         )}
-                                                        {typeFacility == 2 && (
+                                                        {typeFacilityDetail === "2" && (
                                                             <div>
                                                                 <div className="form-outline mb-4">
                                                                     <label className="form-label"
@@ -288,7 +361,7 @@ export function FacilityCreate() {
                                                                 </div>
                                                             </div>
                                                         )}
-                                                        {typeFacility == 3 && (
+                                                        {typeFacilityDetail === "3" && (
                                                             <div>
                                                                 <div className="form-outline mb-4">
                                                                     <label className="form-label"
@@ -296,16 +369,25 @@ export function FacilityCreate() {
                                                                         Dịch vụ miễn phí đi kèm
                                                                     </label>
                                                                     <span className="text-danger">*</span>
-                                                                    <Field
-                                                                        className="form-control form-control-lg"
-                                                                        id="form5Examplecdg"
-                                                                        type="text"
-                                                                        name="freeService"
-                                                                    />
+                                                                    {freeServiceList.map((service, index) => (
+                                                                        <div key={index} className="form-check">
+                                                                            <Field className="form-check-input"
+                                                                                   value={service.id.toString()}
+                                                                                   name="freeService" type="checkbox"
+                                                                                   id={service.id}
+                                                                            />
+                                                                            <label className="form-check-label"
+                                                                                   htmlFor={service.id}>
+                                                                                {service.name}
+                                                                            </label>
+                                                                        </div>
+                                                                    ))}
+
                                                                 </div>
                                                                 <ErrorMessage name='freeService' component='span'
                                                                               className='form-err'/>
                                                             </div>
+
                                                         )}
                                                         {isSubmitting ?
                                                             <Vortex
@@ -323,11 +405,11 @@ export function FacilityCreate() {
                                                                     className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                                                                     type="submit"
                                                                 >
-                                                                    Thêm mới
+                                                                    Cập nhật
                                                                 </button>
                                                             </div>
                                                         }
-                                                        <ToastContainer/>
+                                                        {/*<ToastContainer/>*/}
                                                     </Form>
                                                 </div>
                                             </div>

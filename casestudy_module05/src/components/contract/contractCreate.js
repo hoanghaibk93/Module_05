@@ -1,18 +1,34 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import {Vortex} from 'react-loader-spinner';
 import 'react-toastify/dist/ReactToastify.css';
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router";
+import * as customerService from "../../service/customerService";
+import * as facilityService from "../../service/facilityService";
+import * as contractService from "../../service/contractService";
 
 export function ContractCreate() {
+    const navigate = useNavigate();
     const today = new Date();
-    const dateNow = today.toISOString().substr(0,10);
+    const dateNow = today.toISOString().substr(0, 10);
+    const [customers, setCustomers] = useState([]);
+    const [facilitys, setFacilitys] = useState([]);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            let resultCustomers = await customerService.findAll();
+            let resultFacilitys = await facilityService.findAll();
+            setCustomers(resultCustomers);
+            setFacilitys(resultFacilitys);
+        };
+        fetchApi();
+    }, []);
     return (
         <>
             <Formik
                 initialValues={{
-                    idContract: '',
                     customerId: '1',
                     facilityId: '1',
                     checkInDate: dateNow,
@@ -24,24 +40,28 @@ export function ContractCreate() {
                 //     checkOutDate: 'Ngày trả phòng không được để trống'
                 // }}
                 validationSchema={Yup.object({
-                    idContract: Yup.string()
-                        .required('Mã hợp đồng không được để trống'),
                     checkInDate: Yup.date()
                         .required('Ngày đặt phòng không được để trống'),
                     checkOutDate: Yup.date()
                         .required('Ngày trả phòng không được để trống')
-                        .when('checkInDate',(checkInDate, schema)=>{
-                            return schema.min(checkInDate,'Ngày trả phòng phải bằng hoặc sau ngày đặt phòng')
+                        .when('checkInDate', (checkInDate, schema) => {
+                            return schema.min(checkInDate, 'Ngày trả phòng phải bằng hoặc sau ngày đặt phòng');
                         }),
                     deposit: Yup.number()
                         .required('Tiền đặt cọc không được để trống')
                         .positive('Tiền đặt cọc phải là số dương'),
                 })}
                 onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
+                    console.log(values);
+                    const createContract = async () => {
+                        await contractService.create({
+                            ...values,
+                            customerId: parseInt(values.customerId),
+                            facilityId: parseInt(values.facilityId),
+                        });
                         console.log(values);
                         setSubmitting(false);
-                        toast.success(`Tạo mã hợp đồng: ${values.idContract} thành công `, {
+                        toast.success(`Tạo hợp đồng cho khách hàng ${customers.find(customer => values.customerId == customer.id)?.name} thành công `, {
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -51,7 +71,9 @@ export function ContractCreate() {
                             progress: undefined,
                             theme: "colored",
                         });
-                    }, 1000);
+                    };
+                    createContract();
+                    navigate('/contract');
                 }}>
                 {
                     ({isSubmitting}) => (
@@ -72,22 +94,8 @@ export function ContractCreate() {
                                                         Thêm mới Hợp đồng
                                                     </h2>
                                                     <Form>
-                                                        <div className="form-outline mb-4">
-                                                            <label className="form-label" htmlFor="form3Example1cg">
-                                                                Mã hợp đồng
-                                                            </label>
-                                                            <span className="text-danger">*</span>
-                                                            <Field
-                                                                className="form-control form-control-lg"
-                                                                id="form3Example1cg"
-                                                                type="text"
-                                                                name="idContract"
-                                                            />
-                                                        </div>
-                                                        <ErrorMessage name='idContract' component='span'
-                                                                      className='form-err'/>
                                                         <div>
-                                                            <label className="form-label">Mã khách hàng</label>
+                                                            <label className="form-label">Khách hàng</label>
                                                             <span className="text-danger">*</span>
                                                             <Field
                                                                 as="select"
@@ -96,13 +104,15 @@ export function ContractCreate() {
                                                                 name="customerId"
                                                                 style={{height: 50, marginBottom: 30}}
                                                             >
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
+                                                                {customers.map((type, index) => (
+                                                                    <option key={index}
+                                                                            value={type.id}>{type.name}
+                                                                    </option>
+                                                                ))}
                                                             </Field>
                                                         </div>
                                                         <div>
-                                                            <label className="form-label">Mã dịch vụ</label>
+                                                            <label className="form-label">Loại dịch vụ</label>
                                                             <span className="text-danger">*</span>
                                                             <Field
                                                                 as="select"
@@ -111,9 +121,11 @@ export function ContractCreate() {
                                                                 name="facilityId"
                                                                 style={{height: 50, marginBottom: 30}}
                                                             >
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
+                                                                {facilitys.map((type, index) => (
+                                                                    <option key={index}
+                                                                            value={type.id}>{type.nameFacility}
+                                                                    </option>
+                                                                ))}
                                                             </Field>
                                                         </div>
                                                         <div className="form-outline mb-4">
@@ -181,7 +193,7 @@ export function ContractCreate() {
                                                                 </button>
                                                             </div>
                                                         }
-                                                        <ToastContainer/>
+                                                        {/*<ToastContainer/>*/}
                                                     </Form>
                                                 </div>
                                             </div>
