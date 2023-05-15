@@ -1,0 +1,7 @@
+.pagination{
+    padding-left: 500px;
+    padding-top: 20px;
+}
+.active{
+    background-color: #86b7fe;
+}

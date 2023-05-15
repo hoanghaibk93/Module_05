@@ -1,0 +1,122 @@
+{
+  "students": [
+    {
+      "id": 3,
+      "name": "Hoang Hai3",
+      "age": 18,
+      "date": "2020-10-20",
+      "address": "Da nang",
+      "idType": 2
+    },
+    {
+      "id": 7,
+      "name": "235235hau",
+      "age": 7,
+      "date": "2023-05-23",
+      "address": "Viet Namaf123",
+      "idType": 2
+    },
+    {
+      "name": "235235",
+      "age": 4332,
+      "date": "2023-05-07",
+      "address": "23235",
+      "idType": 1,
+      "id": 8
+    },
+    {
+      "id": 11,
+      "name": "12423",
+      "age": 235,
+      "date": "2023-05-20",
+      "address": "235235",
+      "idType": 3
+    },
+    {
+      "name": "q523532",
+      "age": 235235,
+      "date": "2023-05-02",
+      "address": "Viet Namaf",
+      "idType": 1,
+      "id": 12
+    },
+    {
+      "id": 14,
+      "name": "124124",
+      "age": 23,
+      "date": "2023-05-01",
+      "address": "23423",
+      "idType": 3
+    },
+    {
+      "id": 15,
+      "name": "35345",
+      "age": 12,
+      "date": "2023-05-16",
+      "address": "534534",
+      "idType": 1
+    },
+    {
+      "id": 16,
+      "name": "32235",
+      "age": 23523,
+      "date": "2023-05-09",
+      "address": "23523",
+      "idType": 2
+    },
+    {
+      "id": 17,
+      "name": "23423",
+      "age": 235235,
+      "date": "2023-05-16",
+      "address": "Viet Nam235",
+      "idType": 2
+    },
+    {
+      "name": "3523235",
+      "age": 12,
+      "date": "2023-05-01",
+      "address": "3525",
+      "idType": 2,
+      "id": 18
+    },
+    {
+      "name": "23523",
+      "age": 5235,
+      "date": "2023-05-02",
+      "address": "235235",
+      "idType": 3,
+      "id": 19
+    },
+    {
+      "id": 20,
+      "name": "235235hai",
+      "age": 6,
+      "date": "2023-05-02",
+      "address": "23523",
+      "idType": 2
+    },
+    {
+      "name": "232323",
+      "age": 235,
+      "date": "2023-05-22",
+      "address": "235",
+      "idType": 3,
+      "id": 21
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "name": "Loai 1"
+    },
+    {
+      "id": 2,
+      "name": "Loai 2"
+    },
+    {
+      "id": 3,
+      "name": "Loai 3"
+    }
+  ]
+}

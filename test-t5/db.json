@@ -1,0 +1,50 @@
+{
+  "product": [
+    {
+      "id": 8,
+      "nameProduct": "1weg3465757",
+      "price": 400,
+      "status": "Không",
+      "idProductType": 3
+    },
+    {
+      "id": 9,
+      "nameProduct": "Book101",
+      "price": 2,
+      "status": "Có",
+      "idProductType": 2
+    },
+    {
+      "id": 10,
+      "nameProduct": "Book102",
+      "price": 11000,
+      "status": "Có",
+      "idProductType": 3
+    },
+    {
+      "id": 11,
+      "nameProduct": "book2",
+      "price": 300,
+      "status": "Không",
+      "idProductType": 4
+    }
+  ],
+  "productType": [
+    {
+      "id": 1,
+      "nameTypeProduct": "Vàng"
+    },
+    {
+      "id": 2,
+      "nameTypeProduct": "Bạc"
+    },
+    {
+      "id": 3,
+      "nameTypeProduct": "Đồng"
+    },
+    {
+      "id": 4,
+      "nameTypeProduct": "kim cương"
+    }
+  ]
+}

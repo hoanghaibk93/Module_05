@@ -1,0 +1,46 @@
+//{
+//  "products": [
+//    {
+//      "id": 1,
+//      "name": "clothing1",
+//      "date": "2022-05-06",
+//      "quality": "8",
+//      "idType": 1
+//    },
+//    {
+//      "id": 2,
+//      "name": "clothing2",
+//      "date": "2022-04-06",
+//      "quality": 10,
+//      "idType": 2
+//    },
+//    {
+//      "id": 3,
+//      "name": "abc",
+//      "date": "2022-03-06",
+//      "quality": 7,
+//      "idType": 2
+//    },
+//    {
+//      "id": 4,
+//      "name": "clothing8",
+//      "date": "2022-03-06",
+//      "quality": "9",
+//      "idType": 3
+//    }
+//  ],
+//  "types": [
+//    {
+//      "id": 1,
+//      "name": "blue"
+//    },
+//    {
+//      "id": 2,
+//      "name": "Gussi"
+//    },
+//    {
+//      "id": 3,
+//      "name": "JoneHenry"
+//    }
+//  ]
+//}

@@ -1,0 +1,98 @@
+{
+  "contracts": [
+    {
+      "id": 1,
+      "name": "Xây dựng 1",
+      "start": "2022-03-05",
+      "finish": "2022-04-05",
+      "price": 30,
+      "idType": 3
+    },
+    {
+      "id": 2,
+      "name": "Xây dựng 2",
+      "start": "2022-03-20",
+      "finish": "2022-04-25",
+      "price": 50,
+      "idType": 1
+    },
+    {
+      "id": 3,
+      "name": "Xây dựng 3",
+      "start": "2022-03-10",
+      "finish": "2022-03-15",
+      "price": 10,
+      "idType": 2
+    },
+    {
+      "name": "Hoang Hai",
+      "start": "2023-05-09",
+      "finish": "2023-05-10",
+      "price": 12424.33,
+      "idType": 1,
+      "id": 4
+    },
+    {
+      "name": "book1",
+      "start": "2023-05-09",
+      "finish": "2023-05-18",
+      "price": 10.23325,
+      "idType": 2,
+      "id": 5
+    },
+    {
+      "name": "thitin",
+      "start": "2023-05-01",
+      "finish": "2023-05-03",
+      "price": 523523,
+      "idType": 3,
+      "id": 6
+    },
+    {
+      "name": "book1",
+      "start": "2023-05-09",
+      "finish": "2023-05-23",
+      "price": 234235,
+      "idType": 2,
+      "id": 7
+    },
+    {
+      "name": "Pham Hoang Hai",
+      "start": "2023-05-09",
+      "finish": "2023-05-17",
+      "price": 10000,
+      "idType": 2,
+      "id": 8
+    },
+    {
+      "name": "book1",
+      "start": "2023-05-11",
+      "finish": "2023-05-24",
+      "price": 4235235,
+      "idType": 3,
+      "id": 9
+    },
+    {
+      "name": "Nguyễn Văn D",
+      "start": "2023-05-09",
+      "finish": "2023-05-11",
+      "price": 10000,
+      "idType": 2,
+      "id": 10
+    }
+  ],
+  "type": [
+    {
+      "id": 1,
+      "name": "loại 1"
+    },
+    {
+      "id": 2,
+      "name": "loại 2"
+    },
+    {
+      "id": 3,
+      "name": "loại 3"
+    }
+  ]
+}

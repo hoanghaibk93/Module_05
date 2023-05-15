@@ -1,0 +1,81 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "book1",
+      "price": 15000,
+      "date": "2023-03-15",
+      "idType": 1
+    },
+    {
+      "id": 3,
+      "name": "book3",
+      "price": 17000,
+      "date": "2023-04-15",
+      "idType": 3
+    },
+    {
+      "id": 2,
+      "name": "book3",
+      "price": 10000,
+      "date": "2023-02-15",
+      "idType": 2
+    },
+    {
+      "name": "book10",
+      "price": 10000,
+      "date": "2023-05-01",
+      "idType": 1,
+      "id": 4
+    },
+    {
+      "name": "book9",
+      "price": 23000,
+      "date": "2023-05-09",
+      "idType": 2,
+      "id": 5
+    },
+    {
+      "name": "book5",
+      "price": 5000,
+      "date": "2023-05-03",
+      "idType": 3,
+      "id": 6
+    },
+    {
+      "name": "book13",
+      "price": 15000,
+      "date": "2023-05-10",
+      "idType": 2,
+      "id": 7
+    },
+    {
+      "name": "Pham Hoang Hai",
+      "price": 20000,
+      "date": "2023-05-09",
+      "idType": 2,
+      "id": 8
+    },
+    {
+      "name": "qửqwr",
+      "price": 10000,
+      "date": "2023-05-11",
+      "idType": 2,
+      "id": 9
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "name": "loai 1"
+    },
+    {
+      "id": 2,
+      "name": "loai 2"
+    },
+    {
+      "id": 3,
+      "name": "loai 3"
+    }
+  ]
+}
