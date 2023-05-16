@@ -4,6 +4,7 @@ import React from "react";
 import {List} from "./components/list";
 import {Update} from "./components/update";
 import {ToastContainer} from "react-toastify";
+import {Create} from "./components/create";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<List/>}/>
                 <Route path='/update/:id' element={<Update/>}/>
+                <Route path='/create' element={<Create/>}/>
             </Routes>
          <ToastContainer/>
         </>

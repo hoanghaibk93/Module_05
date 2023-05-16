@@ -5,6 +5,7 @@ import com.example.testmodule05.service.IProductService;
 import com.example.testmodule05.service.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +22,35 @@ public class ProductController {
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> findAllProduct(){
+    public List<Product> findAllProduct() {
         return productService.findAllProduct();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product findById(@PathVariable Integer id){
+    public Product findById(@PathVariable Integer id) {
         return productService.findByIdProduct(id);
     }
+
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateProduct(@PathVariable Integer id, @RequestBody Product product){
+    public void updateProduct(@PathVariable Integer id, @RequestBody Product product) {
         Product product1 = productService.findByIdProduct(id);
         product.setId(product1.getId());
         productService.save(product1);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProduct(@PathVariable Integer id) {
+        productService.delete(id);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> create(@RequestBody Product product) {
+        productService.save(product);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
 

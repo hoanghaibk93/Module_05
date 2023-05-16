@@ -6,11 +6,9 @@ import * as Yup from 'yup';
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export function Update() {
+export function Create() {
     const [listProduct, setListProduct] = useState([]);
     const [listType, setListType] = useState([]);
-    const [productDetail, setProductDetail] = useState();
-    const param = useParams();
     const navigate = useNavigate();
     useEffect(() => {
         const fetchApi = async () => {
@@ -21,27 +19,15 @@ export function Update() {
         };
         fetchApi();
     });
-    useEffect(() => {
-        const fetchApiUpdate = async () => {
-            let result = await serviceProduct.findById(param.id);
-            setProductDetail(result);
-        };
-        fetchApiUpdate();
-    }, [param.id]);
 
-
-    if (!productDetail) {
-        return null;
-    }
     return (
         <>
             <Formik
                 initialValues={{
-                    id: productDetail?.id,
-                    name: productDetail?.name,
-                    date: productDetail?.date,
-                    quality: productDetail?.quality,
-                    idType: productDetail.productType?.idType
+                    name: '',
+                    date: '',
+                    quality: '',
+                    productType: 1,
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string().matches(/\w{1,100}/),
@@ -49,14 +35,11 @@ export function Update() {
                     quality: Yup.number().integer().positive("Giá phải là số nguyên lớn hơn không")
                 })}
                 onSubmit={(values) => {
-                    const updateProduct = async () => {
-                        await serviceProduct.update({...values
-                        ,quality: parseInt(values.quality)
-                        });
-                        // await serviceProduct.update(values);
+                    const createProduct = async () => {
+                        await serviceProduct.create(values);
                         console.log(values);
                         navigate('/');
-                        toast.success(`Cập nhật thành công `, {
+                        toast.success(`Tạo thành công `, {
                             position: "top-right",
                             autoClose: 1000,
                             hideProgressBar: false,
@@ -67,7 +50,7 @@ export function Update() {
                             theme: "colored",
                         });
                     };
-                    updateProduct();
+                    createProduct();
                 }}>
                 <div>
                     <h2 className="text-uppercase text-center mt-4">
@@ -85,14 +68,14 @@ export function Update() {
                         {/*<ErrorMessage name="name" component="span" className="text-danger"/>*/}
                         <div className="form-outline">
                             <label className="form-label" htmlFor="2">Date</label>
-                            <Field className="form-control form-control-lg" id="2" name="date" type="text"/>
+                            <Field className="form-control form-control-lg" id="2" name="date" type="date"/>
                         </div>
                         {/*<ErrorMessage name="date" component="span" className="text-danger"/>*/}
                         <div className="form-outline">
                             <label className="form-label" htmlFor="2">Quality</label>
                             <Field className="form-control form-control-lg" id="2" name="quality" type="text"/>
                         </div>
-                        {/*<ErrorMessage name="quality" component="span" className="text-danger"/>*/}
+                        <ErrorMessage name="quality" component="span" className="text-danger"/>
                         <div>
                             <label className="form-label">Type</label>
                             <Field aria-label="Default select example" as="select" className="form-select"
@@ -103,7 +86,7 @@ export function Update() {
                             </Field>
                         </div>
 
-                        <button className="btn btn-warning mt-3 mb-3" type="submit">Update</button>
+                        <button className="btn btn-warning mt-3 mb-3" type="submit">Create</button>
                     </Form>
                 </div>
 
