@@ -32,4 +32,19 @@ public class ProductService implements IProductService {
     public void delete(Integer idProduct) {
         productRepository.deleteById(idProduct);
     }
+
+    @Override
+    public Product edit(Integer id, Product product) {
+        Product productOld = findByIdProduct(id);
+        productOld.setName(product.getName());
+        productOld.setDate(product.getDate());
+        productOld.setQuality(product.getQuality());
+        productOld.setProductType(product.getProductType());
+        return productRepository.save(productOld);
+    }
+
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return productRepository.findByNameContaining(name);
+    }
 }

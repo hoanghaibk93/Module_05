@@ -19,11 +19,16 @@ export function List() {
         fetchApi();
     }, []);
 
-    // const searchByName = async () => {
-    //     let name = await document.getElementById('name').value;
-    //     let result = await serviceProduct.searchByName(name);
-    //     setListProduct(result);
-    // };
+    const searchByName = async () => {
+        let name = await document.getElementById('name').value;
+        if(!name){
+            let result = serviceProduct.findAllProduct();
+            setListProduct(result);
+        } else {
+            let result = await serviceProduct.searchByName(name);
+            setListProduct(result);
+        }
+    };
     // const searchByType = async () => {
     //     let type = await document.getElementById('type').value;
     //     let result = await serviceProduct.searchByType(type);
@@ -56,15 +61,15 @@ export function List() {
     };
     return (
         <>
-            {/*<div>*/}
-            {/*    <input onChange={() => {*/}
-            {/*        searchByName();*/}
-            {/*    }} aria-label="Search" className="form-control me-lg-2 m-4"*/}
-            {/*           id='name'*/}
-            {/*           placeholder="Search by name"*/}
-            {/*           type="text"*/}
-            {/*    />*/}
-            {/*</div>*/}
+            <div>
+                <input onChange={() => {
+                    searchByName();
+                }} aria-label="Search" className="form-control me-lg-2 m-4"
+                       id='name'
+                       placeholder="Search by name"
+                       type="text"
+                />
+            </div>
             {/*<div>*/}
             {/*    <input onChange={() => {*/}
             {/*        searchByTypeAndName();*/}

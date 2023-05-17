@@ -18,7 +18,7 @@ export const findAllType = async () => {
 };
 export const update = async (product) => {
     try {
-       await axios.put(`http://localhost:8080/product/${product.id}`,{...product});
+       await axios.put(`http://localhost:8080/product/update/${product.id}`,product);
     } catch (e) {
         console.log(e);
     }
@@ -48,7 +48,14 @@ export const deleteProduct = async (id) => {
         console.log(e);
     }
 };
-
+export const searchByName = async (name) => {
+    try {
+        let result = await axios.get(`http://localhost:8080/product/search/${name}`);
+        return result.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
 
 // export const searchByName = async (name) => {
 //     try {

@@ -41,7 +41,7 @@ export function Update() {
                     name: productDetail?.name,
                     date: productDetail?.date,
                     quality: productDetail?.quality,
-                    idType: productDetail.productType?.idType
+                    productType: productDetail.productType?.idType
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string().matches(/\w{1,100}/),
@@ -50,10 +50,15 @@ export function Update() {
                 })}
                 onSubmit={(values) => {
                     const updateProduct = async () => {
-                        await serviceProduct.update({...values
-                        ,quality: parseInt(values.quality)
-                        });
-                        // await serviceProduct.update(values);
+                        values = {
+                            ...values, quality: parseInt(values.quality),
+                            productType: { idType: parseInt(values.productType)}
+                        }
+                        await serviceProduct.update(values);
+                        // await serviceProduct.update({
+                        //     ...values, quality: parseInt(values.quality)
+                        // });
+
                         console.log(values);
                         navigate('/');
                         toast.success(`Cập nhật thành công `, {
@@ -96,7 +101,7 @@ export function Update() {
                         <div>
                             <label className="form-label">Type</label>
                             <Field aria-label="Default select example" as="select" className="form-select"
-                                   name="idType">
+                                   name="productType">
                                 {listType.map((type, index) => (
                                     <option value={type.idType}>{type.nameProduct}</option>
                                 ))}

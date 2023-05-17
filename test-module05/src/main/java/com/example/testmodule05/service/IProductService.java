@@ -11,5 +11,7 @@ public interface IProductService {
 
     void save(Product product);
     void delete(Integer idProduct);
+    Product edit(Integer id, Product product);
+    List<Product> findByNameContaining(String name);
 
 }

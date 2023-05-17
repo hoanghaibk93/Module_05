@@ -33,11 +33,8 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateProduct(@PathVariable Integer id, @RequestBody Product product) {
-        Product product1 = productService.findByIdProduct(id);
-        product.setId(product1.getId());
-        productService.save(product1);
+    public ResponseEntity<?> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
+        return new ResponseEntity<>(productService.edit(id, product), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -52,5 +49,9 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> findByName(@PathVariable String name) {
+        return new ResponseEntity<>(productService.findByNameContaining(name), HttpStatus.OK);
+    }
 }
 

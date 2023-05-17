@@ -11,4 +11,6 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Transactional
     @Query(value = "select * from product", nativeQuery = true)
     List<Product> findAllProduct();
+
+    List<Product> findByNameContaining(String name);
 }

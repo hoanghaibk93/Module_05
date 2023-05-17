@@ -36,6 +36,10 @@ export function Create() {
                 })}
                 onSubmit={(values) => {
                     const createProduct = async () => {
+                        values = {
+                            ...values, quality: parseInt(values.quality),
+                            productType: { idType: parseInt(values.productType)}
+                        }
                         await serviceProduct.create(values);
                         console.log(values);
                         navigate('/');
@@ -79,7 +83,7 @@ export function Create() {
                         <div>
                             <label className="form-label">Type</label>
                             <Field aria-label="Default select example" as="select" className="form-select"
-                                   name="idType">
+                                   name="productType">
                                 {listType.map((type, index) => (
                                     <option value={type.idType}>{type.nameProduct}</option>
                                 ))}
